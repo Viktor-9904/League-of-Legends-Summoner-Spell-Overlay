@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Icons\App\AppIcon2.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="LaneIcons\**" />
+    <Compile Remove="SummonerSpellIcons\**" />
+    <EmbeddedResource Remove="LaneIcons\**" />
+    <EmbeddedResource Remove="SummonerSpellIcons\**" />
+    <None Remove="LaneIcons\**" />
+    <None Remove="SummonerSpellIcons\**" />
+    <Page Remove="LaneIcons\**" />
+    <Page Remove="SummonerSpellIcons\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Icons\App\AppIcon.ico" />
+    <None Remove="Icons\Lanes\Bot.png" />
+    <None Remove="Icons\Lanes\Jungle.png" />
+    <None Remove="Icons\Lanes\Mid.png" />
+    <None Remove="Icons\Lanes\Support.png" />
+    <None Remove="Icons\Lanes\Top.png" />
+    <None Remove="Icons\SummonerSpells\Barrier.png" />
+    <None Remove="Icons\SummonerSpells\Cleanse.png" />
+    <None Remove="Icons\SummonerSpells\Exhaust.png" />
+    <None Remove="Icons\SummonerSpells\Flash.png" />
+    <None Remove="Icons\SummonerSpells\Ghost.png" />
+    <None Remove="Icons\SummonerSpells\Heal.png" />
+    <None Remove="Icons\SummonerSpells\Ignite.png" />
+    <None Remove="Icons\SummonerSpells\Smite.png" />
+    <None Remove="Icons\SummonerSpells\Teleport.png" />
+    <None Remove="Icons\SummonerSpells\Unleashed_Teleport.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icons\App\AppIcon2.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\App\AppIcon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Lanes\Mid.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\Lanes\Bot.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Lanes\Jungle.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Lanes\Support.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Lanes\Top.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Barrier.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Cleanse.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Exhaust.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Flash.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Ghost.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Heal.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Ignite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Smite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Teleport.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\SummonerSpells\Unleashed_Teleport.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

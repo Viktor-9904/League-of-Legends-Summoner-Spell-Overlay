@@ -1,0 +1,152 @@
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+
+using static LolSpellOverlay.Constants;
+
+namespace LolSpellOverlay.Views.UserControls
+{
+    /// <summary>
+    /// Interaction logic for EnemySpell.xaml
+    /// </summary>
+    public partial class EnemySpell : UserControl, INotifyPropertyChanged
+    {
+        public EnemySpell()
+        {
+            InitializeComponent();
+            DataContext = this;
+
+            Loaded += (s, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine(
+                    $"[EnemySpell] Loaded. DataContext = {DataContext?.GetType().Name}, SpellName = {SpellName}");
+            };
+        }
+
+        public static readonly DependencyProperty SpellNameProperty =
+            DependencyProperty.Register(
+                nameof(SpellName),
+                typeof(string),
+                typeof(EnemySpell),
+                new PropertyMetadata(string.Empty, OnSpellNameChanged));
+
+        public string SpellName
+        {
+            get => (string)GetValue(SpellNameProperty);
+            set => SetValue(SpellNameProperty, value);
+        }
+
+        private static void OnSpellNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (EnemySpell)d;
+            var spellName = (string)e.NewValue;
+
+            if (string.IsNullOrWhiteSpace(spellName))
+                return;
+
+            Uri uri = new Uri(
+                $"pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/{spellName}.png",
+                UriKind.Absolute);
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = uri;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.EndInit();
+            image.Freeze();
+
+            control.Spell = new SummonerSpell
+            {
+                Name = spellName,
+                Icon = image,
+                RemainingCooldown = null,
+                IsOnCooldown = false,
+            };
+
+            control.OnPropertyChanged(nameof(Spell));
+        }
+
+        public SummonerSpell Spell { get; private set; }
+
+        private void Spell_LeftClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                var nextSpell = SummonerSpells.All.Find(SummonerSpells.All.FirstOrDefault(s => s.Name == Spell.Name)!)!.Next?.Value
+                    ?? SummonerSpells.All.First!.Value;
+
+                Spell.ResetCooldown();
+                Spell.Name = nextSpell.Name;
+                Spell.Icon = new BitmapImage(new Uri(nextSpell.Icon, UriKind.Absolute));
+                return;
+            }
+
+            if (Spell == null)
+            {
+                return;
+            }
+
+            bool isSpellNameValid = IsSpellNameValid(Spell.Name, out SummonerSpellData newSpell);
+
+            if (!isSpellNameValid)
+            {
+                return;
+            }
+
+            if (!Spell.IsOnCooldown)
+            {
+                Spell.IsOnCooldown = true;
+                Spell.StartCooldown(newSpell!.Cooldown);
+            }
+            else
+            {
+                Spell.RemainingCooldown = Spell.RemainingCooldown - 1;
+                Spell.OnManualCooldownUpdate();
+            }
+        }
+
+        private bool IsSpellNameValid(string name, out SummonerSpellData newSpell)
+        {
+            newSpell = null;
+
+            foreach (var spell in SummonerSpells.All)
+            {
+                if (spell == null)
+                    return false;
+
+                if (spell.Name == name)
+                {
+                    newSpell = spell;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void Spell_RightClick(object sender, MouseButtonEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                var nextSpell = SummonerSpells.All.Find(SummonerSpells.All.FirstOrDefault(s => s.Name == Spell.Name)!)!.Previous?.Value
+                    ?? SummonerSpells.All.Last!.Value;
+
+                Spell.ResetCooldown();
+                Spell.Name = nextSpell.Name;
+                Spell.Icon = new BitmapImage(new Uri(nextSpell.Icon, UriKind.Absolute));
+                return;
+            }
+
+            Spell.ResetCooldown();
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}

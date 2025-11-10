@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100">
 
-    <Grid Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonUp="Spell_LeftClick" MouseRightButtonUp="Spell_RightClick" Cursor="Hand">
+    <Grid Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" MouseLeftButtonUp="Spell_LeftClick" MouseRightButtonUp="Spell_RightClick" MouseWheel="Spell_Scroll" Cursor="Hand">
         <Image Source="{Binding Spell.Icon}" Stretch="UniformToFill" Width="30" Height="30"/>
         
 

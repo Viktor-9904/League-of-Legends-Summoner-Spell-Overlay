@@ -36,7 +36,6 @@
     <None Remove="Icons\SummonerSpells\Ignite.png" />
     <None Remove="Icons\SummonerSpells\Smite.png" />
     <None Remove="Icons\SummonerSpells\Teleport.png" />
-    <None Remove="Icons\SummonerSpells\Unleashed_Teleport.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,7 +91,7 @@
     <Resource Include="Icons\SummonerSpells\Teleport.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Icons\SummonerSpells\Unleashed_Teleport.png">
+    <Resource Include="Icons\SummonerSpells\UnleashedTeleport.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

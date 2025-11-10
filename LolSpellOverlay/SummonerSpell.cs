@@ -51,6 +51,19 @@ namespace LolSpellOverlay
             }
         }
 
+        private int initialCooldown;
+
+        public int InitialCooldown
+        {
+            get { return initialCooldown; }
+            set
+            {
+                initialCooldown = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         private bool isOnCooldown;
 
         public bool IsOnCooldown
@@ -59,37 +72,33 @@ namespace LolSpellOverlay
             set { isOnCooldown = value; }
         }
 
-
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            if (RemainingCooldown > 0)
+            if (RemainingCooldown > 0 && RemainingCooldown - 1 > 0)
             {
                 RemainingCooldown--;
                 OnPropertyChanged(nameof(CooldownDisplay));
             }
             else
             {
-                timer.Stop();
-                RemainingCooldown = null;
-                IsOnCooldown = false;
+                ResetCooldown();
             }
         }
 
-        public void StartCooldown(int seconds)
+        public void StartCooldown()
         {
-            RemainingCooldown = seconds;
+            RemainingCooldown = this.InitialCooldown;
             OnPropertyChanged(nameof(CooldownDisplay));
             IsOnCooldown = true;
             timer.Start();
         }
 
-
         public void ResetCooldown()
         {
             timer.Stop();
-            RemainingCooldown = 0;
-            OnPropertyChanged(nameof(CooldownDisplay));
+            RemainingCooldown = null;
             IsOnCooldown = false;
+            OnPropertyChanged(nameof(CooldownDisplay));
         }
 
         public void OnManualCooldownUpdate()

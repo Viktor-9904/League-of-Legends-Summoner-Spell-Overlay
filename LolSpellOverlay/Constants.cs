@@ -52,7 +52,7 @@
 
                 new SummonerSpellData(
                     "UnleashedTeleport",
-                    "pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/Unleashed_Teleport.png",
+                    "pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/UnleashedTeleport.png",
                     260),
 
                 new SummonerSpellData(

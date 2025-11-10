@@ -18,12 +18,6 @@ namespace LolSpellOverlay.Views.UserControls
         {
             InitializeComponent();
             DataContext = this;
-
-            Loaded += (s, e) =>
-            {
-                System.Diagnostics.Debug.WriteLine(
-                    $"[EnemySpell] Loaded. DataContext = {DataContext?.GetType().Name}, SpellName = {SpellName}");
-            };
         }
 
         public static readonly DependencyProperty SpellNameProperty =
@@ -47,8 +41,15 @@ namespace LolSpellOverlay.Views.UserControls
             if (string.IsNullOrWhiteSpace(spellName))
                 return;
 
+            var currentSpell = SummonerSpells.All.FirstOrDefault(s => s.Name == spellName);
+
+            bool isSpellNameValid = IsSpellNameValid(currentSpell?.Name, out SummonerSpellData newSpell);
+
+            if (!isSpellNameValid)
+                return;
+
             Uri uri = new Uri(
-                $"pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/{spellName}.png",
+                $"pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/{currentSpell!.Name}.png",
                 UriKind.Absolute);
 
             BitmapImage image = new BitmapImage();
@@ -60,9 +61,10 @@ namespace LolSpellOverlay.Views.UserControls
 
             control.Spell = new SummonerSpell
             {
-                Name = spellName,
+                Name = currentSpell.Name,
                 Icon = image,
                 RemainingCooldown = null,
+                InitialCooldown = currentSpell.Cooldown,
                 IsOnCooldown = false,
             };
 
@@ -81,36 +83,36 @@ namespace LolSpellOverlay.Views.UserControls
                 Spell.ResetCooldown();
                 Spell.Name = nextSpell.Name;
                 Spell.Icon = new BitmapImage(new Uri(nextSpell.Icon, UriKind.Absolute));
+                Spell.InitialCooldown = nextSpell.Cooldown;
                 return;
             }
 
             if (Spell == null)
-            {
                 return;
-            }
 
             bool isSpellNameValid = IsSpellNameValid(Spell.Name, out SummonerSpellData newSpell);
 
             if (!isSpellNameValid)
-            {
                 return;
-            }
 
-            if (!Spell.IsOnCooldown)
+            if (!Spell.IsOnCooldown && Spell.RemainingCooldown == null)
             {
                 Spell.IsOnCooldown = true;
-                Spell.StartCooldown(newSpell!.Cooldown);
+                Spell.StartCooldown();
             }
-            else
+            else if (Spell.RemainingCooldown - 1 != 0)
             {
                 Spell.RemainingCooldown = Spell.RemainingCooldown - 1;
                 Spell.OnManualCooldownUpdate();
             }
         }
 
-        private bool IsSpellNameValid(string name, out SummonerSpellData newSpell)
+        private static bool IsSpellNameValid(string? name, out SummonerSpellData newSpell)
         {
             newSpell = null;
+
+            if (string.IsNullOrEmpty(name))
+                return false;
 
             foreach (var spell in SummonerSpells.All)
             {
@@ -141,6 +143,20 @@ namespace LolSpellOverlay.Views.UserControls
             }
 
             Spell.ResetCooldown();
+        }
+
+        private void Spell_Scroll(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta < 0 && Spell.RemainingCooldown > 0)
+            {
+                Spell_LeftClick(sender, null);
+            }
+
+            if (e.Delta > 0 && Spell.RemainingCooldown > 0 && Spell.RemainingCooldown < Spell.InitialCooldown)
+            {
+                Spell.RemainingCooldown++;
+                Spell.OnManualCooldownUpdate();
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

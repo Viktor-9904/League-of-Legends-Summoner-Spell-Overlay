@@ -1,4 +1,4 @@
-name: Build WPF App
+name: Build and Release WPF App
 
 on:
   push:
@@ -15,8 +15,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
@@ -27,6 +25,7 @@ jobs:
       run: dotnet restore LolSpellOverlay/LolSpellOverlay.csproj
 
     - name: Publish project
+      shell: pwsh
       run: |
         dotnet publish LolSpellOverlay/LolSpellOverlay.csproj `
           -c Release `
@@ -36,34 +35,13 @@ jobs:
           /p:PublishTrimmed=false `
           -o output
 
-    - name: Create 'latest' tag
-      env:
-        GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-      run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git tag -f latest
-        git push https://x-access-token:$GH_PAT@github.com/${{ github.repository }} latest --force
-
-    - name: Wait a few seconds for GitHub to recognize tag
-      shell: pwsh
-      run: Start-Sleep -Seconds 5
-
-    - name: Create or update Latest Release
-      id: create_release
+    - name: Create Latest Release with .exe
+      id: release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: latest
         name: Latest Build
         body: "Automatically generated latest build"
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload .exe to Latest Release
-      uses: softprops/action-gh-release@v1
-      with:
         files: output/LolSpellOverlay.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

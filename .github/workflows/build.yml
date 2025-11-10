@@ -35,13 +35,16 @@ jobs:
           /p:PublishTrimmed=false `
           -o output
 
-    - name: Create Latest Release with .exe
-      id: release
+    - name: Zip output folder
+      shell: pwsh
+      run: Compress-Archive -Path output\* -DestinationPath LolSpellOverlay-win-x64.zip
+
+    - name: Create Latest Release with ZIP
       uses: softprops/action-gh-release@v1
       with:
         tag_name: latest
         name: Latest Build
-        body: "Automatically generated latest self-contained build"
-        files: output/LolSpellOverlay.exe
+        body: "Automatically generated self-contained build"
+        files: LolSpellOverlay-win-x64.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

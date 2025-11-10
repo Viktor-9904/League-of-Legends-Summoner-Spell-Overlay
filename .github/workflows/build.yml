@@ -24,13 +24,13 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore LolSpellOverlay/LolSpellOverlay.csproj
 
-    - name: Publish project
+    - name: Publish project (Self-contained)
       shell: pwsh
       run: |
         dotnet publish LolSpellOverlay/LolSpellOverlay.csproj `
           -c Release `
           -r win-x64 `
-          --self-contained false `
+          --self-contained true `
           /p:PublishSingleFile=true `
           /p:PublishTrimmed=false `
           -o output
@@ -41,7 +41,7 @@ jobs:
       with:
         tag_name: latest
         name: Latest Build
-        body: "Automatically generated latest build"
+        body: "Automatically generated latest self-contained build"
         files: output/LolSpellOverlay.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

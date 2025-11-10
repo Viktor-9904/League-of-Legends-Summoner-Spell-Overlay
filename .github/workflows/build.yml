@@ -31,7 +31,7 @@ jobs:
           -c Release `
           -r win-x64 `
           --self-contained true `
-          /p:PublishSingleFile=true `
+          /p:PublishSingleFile=false `
           /p:PublishTrimmed=false `
           -o output
 

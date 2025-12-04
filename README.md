@@ -19,53 +19,41 @@ This overlay does **not inject or modify the game**.
 
 ---
 
+## 🚀 Installation
+1. Download the latest release ZIP from the [**Releases**](https://github.com/Viktor-9904/LolSpellOverlay/releases/latest) page.
+2. Extract the ZIP to any folder on your computer.
+3. Inside the extracted folder, locate: **``` LolSpellOverlay.exe ```**
+4. Double-click **``` LolSpellOverlay.exe ```** to start the application.
+  > **Note:** On first launch, Windows may show a SmartScreen popup warning because the app is unsigned.
+  >
+  > Click **“More info”** → **“Run anyway”** to proceed.
+---
+
 ## 🎮 Controls
 
-- **Left Click:**  
-  - If the spell is not on cooldown → set cooldown  
-  - If already on cooldown → reduce cooldown by 1 second  
+- **Left Click/Scroll Down:**  
+  - If spell is not on cooldown → set cooldown  
+  - If spell is on cooldown → reduce remaining spell cooldown by 1 second  
 
 - **Right Click:**  
-  - If spell is on cooldown → remove cooldown  
+  - If spell is on cooldown → reset remaining cooldown
+ 
+- **Scroll Up:**  
+  - If spell is on cooldown → increase remaining spell cooldown by 1 second  
 
 - **Ctrl + Left Click:**  
-  - Removes active cooldown and cycles to the **next spell**  
+  - Cycles to the **next spell**  
 
 - **Ctrl + Right Click:**  
-  - Removes active cooldown and cycles to the **previous spell**
+  - Cycles to the **previous spell**
 
 ---
 
 ## 📝 Planned Features
 
 - Add an checkbox for **_Ionian Boots_** to accurately calculate summoner spell haste.
-- Add an checkbox for **_Cosmic Insight_** to accurately calculate summoner spell haste.
-- Allow assigning the **_enemy player level_** to accurately calculate **Unleashed Teleport** cooldown.
 - Play a **_sound effect_** shortly before an enemy summoner spell becomes available.
-
-
----
-
-## 💻 Requirements
-
-- Windows 10 or 11  
-- [.NET 9 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)  
----
-
-## 🚀 Installation
-1. Clone the repository:
-```bash
-git clone https://github.com/Viktor-9904/LolSpellOverlay.git
-```
-2. Navigate to the solution’s build output folder. By default, Visual Studio places the compiled files here:
-```bash
-LolSpellOverlay\bin\Debug\net9.0-windows\
-  ```
-3. Locate the executable:
-```bash
-LolSpellOverlay.exe
-```
-4. Double-click **LolSpellOverlay.exe** to run the application.
+  
 ---
 
 ## 💡 Notes
@@ -74,6 +62,11 @@ LolSpellOverlay.exe
 - The overlay **will not appear in exclusive fullscreen mode** due to Windows limitations.
 - The application runs completely **offline** and does not require an internet connection.
 
+---
+
+## 💻 Requirements
+
+- Windows 10 or 11  
 ---
 
 ## 📜 License

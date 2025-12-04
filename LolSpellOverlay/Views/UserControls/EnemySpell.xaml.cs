@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 using static LolSpellOverlay.Constants;
@@ -75,6 +76,28 @@ namespace LolSpellOverlay.Views.UserControls
 
         private void Spell_LeftClick(object sender, MouseButtonEventArgs e)
         {
+            int summonerSpellHaste = 0;
+
+            bool cosmicInsightActive = false;
+            bool ionianBootsActive = false;
+
+            var parent = FindParent<EnemyRow>(this);
+            if (parent != null)
+            {
+                cosmicInsightActive = parent.CosmicInsightActive;
+                ionianBootsActive = parent.IonianBootsActive;
+            }
+
+            if (cosmicInsightActive)
+            {
+                summonerSpellHaste += Runes.CosmicInsightSpellHaste;
+            }
+
+            if (ionianBootsActive)
+            {
+                summonerSpellHaste += Items.IonianBootsOfLuciditySpellHaste;
+            }
+
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 var nextSpell = SummonerSpells.All.Find(SummonerSpells.All.FirstOrDefault(s => s.Name == Spell.Name)!)!.Next?.Value
@@ -99,6 +122,8 @@ namespace LolSpellOverlay.Views.UserControls
             {
                 Spell.IsOnCooldown = true;
                 Spell.StartCooldown();
+                Spell.RemainingCooldown -= ReducedSpellCooldown(Spell.InitialCooldown, summonerSpellHaste);
+                Spell.OnManualCooldownUpdate();
             }
             else if (Spell.RemainingCooldown - 1 != 0)
             {
@@ -163,6 +188,22 @@ namespace LolSpellOverlay.Views.UserControls
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public static T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject current = child;
+            while (current != null)
+            {
+                if (current is T parent)
+                    return parent;
+                current = VisualTreeHelper.GetParent(current);
+            }
+            return null;
+        }
+        private int ReducedSpellCooldown(int baseCooldown, int spellHaste)
+        {
+            int result = (int)Math.Round(baseCooldown - ((double)baseCooldown * 100 / (100 + spellHaste)));
+            return result;
         }
     }
 }

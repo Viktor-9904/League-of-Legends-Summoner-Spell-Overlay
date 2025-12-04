@@ -1,4 +1,6 @@
-﻿namespace LolSpellOverlay
+﻿using System.CodeDom;
+
+namespace LolSpellOverlay
 {
     public static class Constants
     {
@@ -70,6 +72,17 @@
                     "pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/Smite.png",
                     90)
             });
+        }
+
+        public static class Runes
+        {
+            public const int CosmicInsightSpellHaste = 18;
+            public const int CosmicInsightItemHaste = 10;
+        }
+
+        public static class Items
+        {
+            public const int IonianBootsOfLuciditySpellHaste = 10;
         }
     }
 }

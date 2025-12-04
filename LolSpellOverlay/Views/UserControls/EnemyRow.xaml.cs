@@ -1,11 +1,13 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace LolSpellOverlay.Views.UserControls
 {
-    public partial class EnemyRow : UserControl
+    public partial class EnemyRow : UserControl, INotifyPropertyChanged
     {
         public EnemyRow()
         {
@@ -52,6 +54,31 @@ namespace LolSpellOverlay.Views.UserControls
             set => SetValue(Spell_F_Property, value);
         }
 
+        public BitmapImage LaneImage { get; set; }
+
+        private bool cosmicInsightActive;
+        private bool ionianBootsActive;
+
+        public bool CosmicInsightActive
+        {
+            get { return cosmicInsightActive; }
+            set
+            {
+                cosmicInsightActive = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IonianBootsActive
+        {
+            get { return ionianBootsActive; }
+            set
+            {
+                ionianBootsActive = value;
+                OnPropertyChanged();
+            }
+        }
+
         private static void OnInitialLaneIcon(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var control = (EnemyRow)d;
@@ -96,6 +123,11 @@ namespace LolSpellOverlay.Views.UserControls
             }
         }
 
-        public BitmapImage LaneImage { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

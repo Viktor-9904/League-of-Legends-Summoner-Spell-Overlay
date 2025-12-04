@@ -80,12 +80,12 @@
 
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Icons/Runes/CosmicInsight.png" Width="32" Height="32"/>
-                            <CheckBox Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
+                            <CheckBox IsChecked="{Binding CosmicInsightActive}" Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Icons/Items/IonianBootsOfLucidity.png" Width="32" Height="32"/>
-                            <CheckBox Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
+                            <CheckBox IsChecked="{Binding IonianBootsActive}" Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
                         </StackPanel>
 
                     </StackPanel>

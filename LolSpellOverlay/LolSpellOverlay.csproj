@@ -26,11 +26,13 @@
 
   <ItemGroup>
     <None Remove="Icons\App\AppIcon.ico" />
+    <None Remove="Icons\Items\IonianBootsOfLucidity.png" />
     <None Remove="Icons\Lanes\Bot.png" />
     <None Remove="Icons\Lanes\Jungle.png" />
     <None Remove="Icons\Lanes\Mid.png" />
     <None Remove="Icons\Lanes\Support.png" />
     <None Remove="Icons\Lanes\Top.png" />
+    <None Remove="Icons\Runes\CosmicInsight.png" />
     <None Remove="Icons\SummonerSpells\Barrier.png" />
     <None Remove="Icons\SummonerSpells\Cleanse.png" />
     <None Remove="Icons\SummonerSpells\Exhaust.png" />
@@ -50,6 +52,9 @@
     <Resource Include="Icons\App\AppIcon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\Items\IonianBootsOfLucidity.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\Lanes\Mid.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -66,6 +71,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\Lanes\Top.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Runes\CosmicInsight.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\SummonerSpells\Barrier.png">

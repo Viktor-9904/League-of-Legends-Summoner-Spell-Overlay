@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace LolSpellOverlay.Views.UserControls
@@ -84,6 +85,14 @@ namespace LolSpellOverlay.Views.UserControls
             if (!string.IsNullOrEmpty(spellName))
             {
                 control.Spell_F = spellName;
+            }
+        }
+
+        private void MainImage_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                DropPopup.IsOpen = true;
             }
         }
 

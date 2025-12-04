@@ -6,6 +6,57 @@
              xmlns:local="clr-namespace:LolSpellOverlay.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="150">
+
+    <UserControl.Resources>
+        <Style x:Key="CustomCheckBox" TargetType="CheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid>
+                            <Border 
+                                x:Name="Border"
+                                Width="24"
+                                Height="24"
+                                Background="Black"
+                                BorderBrush="#737373"
+                                BorderThickness="1"
+                                CornerRadius="2"/>
+
+                            <Viewbox Stretch="Uniform" x:Name="CheckMarkBox" Visibility="Collapsed">
+
+                                <Path 
+                                    x:Name="CheckMark"
+                                    Data="M 2 8 L 6 12 L 14 2"
+                                    StrokeThickness="2"
+                                    Stroke="Lime"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" CenterX="7" CenterY="7"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Viewbox>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckMarkBox" Property="Visibility" Value="Visible" />
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#333333"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="Lime"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
@@ -14,7 +65,32 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="{Binding LaneImage}"/>
+            <Image x:Name="MainImage" Source="{Binding LaneImage}" MouseRightButtonUp="MainImage_MouseRightButtonUp"/>
+
+            <Popup 
+                x:Name="DropPopup"
+                PlacementTarget="{Binding ElementName=MainImage}"
+                Placement="Bottom"
+                StaysOpen="False"
+                AllowsTransparency="True"
+                PopupAnimation="Fade">
+
+                <Border Background="Black" BorderBrush="Gray" BorderThickness="1" Padding="5">
+                    <StackPanel Orientation="Vertical">
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Icons/Runes/CosmicInsight.png" Width="32" Height="32"/>
+                            <CheckBox Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Icons/Items/IonianBootsOfLucidity.png" Width="32" Height="32"/>
+                            <CheckBox Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+            </Popup>
         </Grid>
 
         <Grid Grid.Column="1" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -24,6 +100,5 @@
         <Grid Grid.Column="2" Width="30" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <local:EnemySpell SpellName="{Binding Spell_F, RelativeSource={RelativeSource AncestorType={x:Type local:EnemyRow}}}" />
         </Grid>
-
     </Grid>
 </UserControl>

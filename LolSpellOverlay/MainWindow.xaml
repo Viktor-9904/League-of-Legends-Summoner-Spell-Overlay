@@ -41,7 +41,8 @@
             HorizontalAlignment="Center"
             Lane="Jungle"
             Spell_D="Flash"
-            Spell_F="Smite"/>
+            Spell_F="Smite"
+            Spell_G="noIcon"/>
 
         <userControls:EnemyRow 
             Grid.Row="2"
@@ -50,7 +51,8 @@
             HorizontalAlignment="Center"
             Lane="Mid"
             Spell_D="Flash"
-            Spell_F="Teleport"/>
+            Spell_F="Teleport"
+            Spell_G="noIcon"/>
 
         <userControls:EnemyRow 
             Grid.Row="3"
@@ -59,7 +61,8 @@
             HorizontalAlignment="Center"
             Lane="Bot"
             Spell_D="Flash"
-            Spell_F="Barrier"/>
+            Spell_F="Barrier"
+            Spell_G="noIcon"/>
 
         <userControls:EnemyRow 
             Grid.Row="4"
@@ -68,7 +71,8 @@
             HorizontalAlignment="Center"
             Lane="Support"
             Spell_D="Flash"
-            Spell_F="Exhaust"/>
+            Spell_F="Exhaust"
+            Spell_G="noIcon"/>
 
     </Grid>
 </Window>

@@ -26,7 +26,16 @@
 
   <ItemGroup>
     <None Remove="Icons\App\AppIcon.ico" />
+    <None Remove="Icons\Items\GuardianAngel.png" />
+    <None Remove="Icons\Items\ImmortalShieldbow.png" />
     <None Remove="Icons\Items\IonianBootsOfLucidity.png" />
+    <None Remove="Icons\Items\MawOfMalmortius.png" />
+    <None Remove="Icons\Items\MikaelsBlessing.png" />
+    <None Remove="Icons\Items\noIcon.jpg" />
+    <None Remove="Icons\Items\QSS.png" />
+    <None Remove="Icons\Items\SeraphsEmbrace.png" />
+    <None Remove="Icons\Items\SteraksGage.png" />
+    <None Remove="Icons\Items\ZhonyaHourglass.png" />
     <None Remove="Icons\Lanes\Bot.png" />
     <None Remove="Icons\Lanes\Jungle.png" />
     <None Remove="Icons\Lanes\Mid.png" />
@@ -54,7 +63,34 @@
     <Resource Include="Icons\App\AppIcon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Icons\Items\GuardianAngel.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\ImmortalShieldbow.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Icons\Items\IonianBootsOfLucidity.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\MawOfMalmortius.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\MikaelsBlessing.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\noIcon.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\QSS.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\SeraphsEmbrace.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\SteraksGage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\ZhonyaHourglass.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\Lanes\Mid.png">

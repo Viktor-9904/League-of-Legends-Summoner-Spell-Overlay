@@ -7,11 +7,11 @@ using System.Windows.Threading;
 
 namespace LolSpellOverlay
 {
-    public class SummonerSpell : INotifyPropertyChanged
+    public class SummonerAction : INotifyPropertyChanged
     {
         private MediaPlayer player;
 
-        public SummonerSpell()
+        public SummonerAction()
         {
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -72,7 +72,6 @@ namespace LolSpellOverlay
             }
         }
 
-
         private bool isOnCooldown;
 
         public bool IsOnCooldown
@@ -81,8 +80,16 @@ namespace LolSpellOverlay
             set { isOnCooldown = value; }
         }
 
-        private void Timer_Tick(object? sender, EventArgs e)
+        private bool isItem;
+
+        public bool IsItem
         {
+            get { return isItem; }
+            set { isItem = value; }
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        { 
             if (RemainingCooldown == 20)
             {
                 player.Stop();
@@ -113,7 +120,7 @@ namespace LolSpellOverlay
             timer.Stop();
             RemainingCooldown = null;
             IsOnCooldown = false;
-            OnPropertyChanged(nameof(CooldownDisplay));
+            OnManualCooldownUpdate();
         }
 
         public void OnManualCooldownUpdate()

@@ -44,13 +44,13 @@ namespace LolSpellOverlay.Views.UserControls
 
             var currentSpell = SummonerSpells.All.FirstOrDefault(s => s.Name == spellName);
 
-            bool isSpellNameValid = IsSpellNameValid(currentSpell?.Name, out SummonerSpellData newSpell);
+            bool isSpellNameValid = IsSpellNameValid(currentSpell?.Name, out SummonerActionData newSpell);
 
             if (!isSpellNameValid)
                 return;
 
             Uri uri = new Uri(
-                $"pack://application:,,,/LolSpellOverlay;component/Icons/SummonerSpells/{currentSpell!.Name}.png",
+                currentSpell!.Icon,
                 UriKind.Absolute);
 
             BitmapImage image = new BitmapImage();
@@ -60,7 +60,7 @@ namespace LolSpellOverlay.Views.UserControls
             image.EndInit();
             image.Freeze();
 
-            control.Spell = new SummonerSpell
+            control.Spell = new SummonerAction
             {
                 Name = currentSpell.Name,
                 Icon = image,
@@ -72,11 +72,12 @@ namespace LolSpellOverlay.Views.UserControls
             control.OnPropertyChanged(nameof(Spell));
         }
 
-        public SummonerSpell Spell { get; private set; }
+        public SummonerAction Spell { get; private set; }
 
         private void Spell_LeftClick(object sender, MouseButtonEventArgs e)
         {
             int summonerSpellHaste = 0;
+            int summonerItemHaste = 0;
 
             bool cosmicInsightActive = false;
             bool ionianBootsActive = false;
@@ -91,6 +92,7 @@ namespace LolSpellOverlay.Views.UserControls
             if (cosmicInsightActive)
             {
                 summonerSpellHaste += Runes.CosmicInsightSpellHaste;
+                summonerItemHaste += Runes.CosmicInsightItemHaste;
             }
 
             if (ionianBootsActive)
@@ -107,13 +109,14 @@ namespace LolSpellOverlay.Views.UserControls
                 Spell.Name = nextSpell.Name;
                 Spell.Icon = new BitmapImage(new Uri(nextSpell.Icon, UriKind.Absolute));
                 Spell.InitialCooldown = nextSpell.Cooldown;
+                Spell.IsItem = nextSpell.IsItem;
                 return;
             }
 
             if (Spell == null)
                 return;
 
-            bool isSpellNameValid = IsSpellNameValid(Spell.Name, out SummonerSpellData newSpell);
+            bool isSpellNameValid = IsSpellNameValid(Spell.Name, out SummonerActionData newSpell);
 
             if (!isSpellNameValid)
                 return;
@@ -122,17 +125,17 @@ namespace LolSpellOverlay.Views.UserControls
             {
                 Spell.IsOnCooldown = true;
                 Spell.StartCooldown();
-                Spell.RemainingCooldown -= ReducedSpellCooldown(Spell.InitialCooldown, summonerSpellHaste);
+                Spell.RemainingCooldown -= ReducedSpellCooldown(Spell.IsItem, Spell.InitialCooldown, summonerSpellHaste, summonerItemHaste);
                 Spell.OnManualCooldownUpdate();
             }
-            else if (Spell.RemainingCooldown - 1 != 0)
+            else if (Spell.RemainingCooldown - 1 > 0)
             {
                 Spell.RemainingCooldown = Spell.RemainingCooldown - 1;
                 Spell.OnManualCooldownUpdate();
             }
         }
 
-        private static bool IsSpellNameValid(string? name, out SummonerSpellData newSpell)
+        private static bool IsSpellNameValid(string? name, out SummonerActionData newSpell)
         {
             newSpell = null;
 
@@ -156,14 +159,39 @@ namespace LolSpellOverlay.Views.UserControls
 
         private void Spell_RightClick(object sender, MouseButtonEventArgs e)
         {
+            int summonerSpellHaste = 0;
+            int summonerItemHaste = 0;
+
+            bool cosmicInsightActive = false;
+            bool ionianBootsActive = false;
+
+            var parent = FindParent<EnemyRow>(this);
+            if (parent != null)
+            {
+                cosmicInsightActive = parent.CosmicInsightActive;
+                ionianBootsActive = parent.IonianBootsActive;
+            }
+
+            if (cosmicInsightActive)
+            {
+                summonerSpellHaste += Runes.CosmicInsightSpellHaste;
+                summonerItemHaste += Runes.CosmicInsightItemHaste;
+            }
+
+            if (ionianBootsActive)
+            {
+                summonerSpellHaste += Items.IonianBootsOfLuciditySpellHaste;
+            }
+
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 var nextSpell = SummonerSpells.All.Find(SummonerSpells.All.FirstOrDefault(s => s.Name == Spell.Name)!)!.Previous?.Value
                     ?? SummonerSpells.All.Last!.Value;
 
-                Spell.ResetCooldown();
                 Spell.Name = nextSpell.Name;
                 Spell.Icon = new BitmapImage(new Uri(nextSpell.Icon, UriKind.Absolute));
+                Spell.InitialCooldown = nextSpell.Cooldown;
+                Spell.ResetCooldown();
                 return;
             }
 
@@ -200,9 +228,19 @@ namespace LolSpellOverlay.Views.UserControls
             }
             return null;
         }
-        private int ReducedSpellCooldown(int baseCooldown, int spellHaste)
+        private int ReducedSpellCooldown(bool isItem, int baseCooldown, int spellHaste, int itemHaste)
         {
-            int result = (int)Math.Round(baseCooldown - ((double)baseCooldown * 100 / (100 + spellHaste)));
+            int result;
+
+            if (isItem)
+            {
+                result = (int)Math.Round(baseCooldown - ((double)baseCooldown * 100 / (100 + itemHaste)));
+            }
+            else
+            {
+                result = (int)Math.Round(baseCooldown - ((double)baseCooldown * 100 / (100 + spellHaste)));
+            }
+
             return result;
         }
     }

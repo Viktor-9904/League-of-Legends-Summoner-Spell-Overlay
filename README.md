@@ -46,21 +46,16 @@ This overlay does **not inject or modify the game**.
 
 - **Ctrl + Right Click:**  
   - Cycles to the **previous spell**
-
+  - Pressing Ctrl + Right Click on a laner icon lets the user indicate if they have Cosmic Insight or Ionian Boots of Lucidity, so the app can calculate summoner spell haste accurately.
 ---
 
-## 📝 Planned Features
-
-- Add an checkbox for **_Ionian Boots_** to accurately calculate summoner spell haste.
-- Play a **_sound effect_** shortly before an enemy summoner spell becomes available.
-  
----
 
 ## 💡 Notes
 
 - Works best when **League of Legends is in borderless/windowed mode**.
 - The overlay **will not appear in exclusive fullscreen mode** due to Windows limitations.
 - The application runs completely **offline** and does not require an internet connection.
+- The app plays a sound effect when a spell’s remaining cooldown reaches 20 seconds. You can adjust the volume or mute the app via the Windows mixer if desired.
 
 ---
 

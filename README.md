@@ -41,7 +41,7 @@ This overlay does **not inject or modify the game**.
 - **Scroll Up:**  
   - If spell is on cooldown → increase remaining spell cooldown by 1 second
 
-- **Scroll down:**  
+- **Scroll Down:**  
   - If spell is on cooldown → reduce remaining spell cooldown by 1 second  
 
 - **Ctrl + Left Click:**  

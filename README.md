@@ -31,7 +31,7 @@ This overlay does **not inject or modify the game**.
 
 ## 🎮 Controls
 
-- **Left Click/Scroll Down:**  
+- **Left Click**  
   - If spell is not on cooldown → set cooldown  
   - If spell is on cooldown → reduce remaining spell cooldown by 1 second  
 
@@ -39,7 +39,10 @@ This overlay does **not inject or modify the game**.
   - If spell is on cooldown → reset remaining cooldown
  
 - **Scroll Up:**  
-  - If spell is on cooldown → increase remaining spell cooldown by 1 second  
+  - If spell is on cooldown → increase remaining spell cooldown by 1 second
+
+- **Scroll down:**  
+  - If spell is on cooldown → reduce remaining spell cooldown by 1 second  
 
 - **Ctrl + Left Click:**  
   - Cycles to the **next spell**  

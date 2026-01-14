@@ -128,6 +128,12 @@ namespace LolSpellOverlay
                     true),
 
                 new SummonerActionData(
+                    "LocketOfTheIronSolari",
+                    "pack://application:,,,/LolSpellOverlay;component/Icons/Items/LocketOfTheIronSolari.png",
+                    90,
+                    true),
+
+                new SummonerActionData(
                     "SeraphsEmbrace",
                     "pack://application:,,,/LolSpellOverlay;component/Icons/Items/SeraphsEmbrace.png",
                     90,

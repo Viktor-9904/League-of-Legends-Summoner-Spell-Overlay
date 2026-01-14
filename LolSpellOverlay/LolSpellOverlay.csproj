@@ -29,6 +29,7 @@
     <None Remove="Icons\Items\GuardianAngel.png" />
     <None Remove="Icons\Items\ImmortalShieldbow.png" />
     <None Remove="Icons\Items\IonianBootsOfLucidity.png" />
+    <None Remove="Icons\Items\LocketOfTheIronSolari.png" />
     <None Remove="Icons\Items\MawOfMalmortius.png" />
     <None Remove="Icons\Items\MikaelsBlessing.png" />
     <None Remove="Icons\Items\noIcon.jpg" />
@@ -70,6 +71,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\Items\IonianBootsOfLucidity.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\LocketOfTheIronSolari.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\Items\MawOfMalmortius.png">

@@ -36,7 +36,7 @@ namespace LolSpellOverlay
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source == this)
+            if (e.Source == this && Keyboard.Modifiers == ModifierKeys.Control)
                 DragMove();
         }
 

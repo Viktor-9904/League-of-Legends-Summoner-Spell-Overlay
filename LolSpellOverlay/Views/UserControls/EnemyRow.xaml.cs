@@ -15,6 +15,17 @@ namespace LolSpellOverlay.Views.UserControls
             DataContext = this;
         }
 
+        private void DropPopup_Opened(object sender, EventArgs e)
+        {
+            if (DropPopup.Child is UIElement child)
+                child.Focus();
+        }
+
+        protected override void OnPreviewLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
+        {
+            DropPopup.IsOpen = false;
+        }
+
         public static readonly DependencyProperty LaneProperty =
             DependencyProperty.Register(
                 nameof(Lane),

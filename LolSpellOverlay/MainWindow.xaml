@@ -13,6 +13,7 @@
         Title="Spell Overlay" Height="200" Width="140"
         Background="#AA000000"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Deactivated="Window_Deactivated"
         Loaded="Window_Loaded">
 
     <Grid>

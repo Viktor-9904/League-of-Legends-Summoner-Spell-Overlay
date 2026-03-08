@@ -70,6 +70,7 @@ namespace LolSpellOverlay.Views.UserControls
 
         private bool cosmicInsightActive;
         private bool ionianBootsActive;
+        private bool crimsonLucidityActive;
 
         public bool CosmicInsightActive
         {
@@ -86,7 +87,30 @@ namespace LolSpellOverlay.Views.UserControls
             get { return ionianBootsActive; }
             set
             {
+                if (CrimsonLucidityActive)
+                {
+                    CrimsonLucidityActive = false;
+                    OnPropertyChanged(nameof(CrimsonLucidityActive));
+                }
+
                 ionianBootsActive = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool CrimsonLucidityActive
+        {
+            get { return crimsonLucidityActive; }
+            set
+            {
+
+                if (value && IonianBootsActive)
+                {
+                    IonianBootsActive = false;
+                    OnPropertyChanged(nameof(IonianBootsActive));
+                }
+
+                crimsonLucidityActive = value;
                 OnPropertyChanged();
             }
         }

@@ -79,14 +79,19 @@
                 <Border Background="Black" BorderBrush="Gray" BorderThickness="1" Padding="5">
                     <StackPanel Orientation="Vertical">
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="0,1">
                             <Image Source="/Icons/Runes/CosmicInsight.png" Width="32" Height="32"/>
                             <CheckBox IsChecked="{Binding CosmicInsightActive}" Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="0,1">
                             <Image Source="/Icons/Items/IonianBootsOfLucidity.png" Width="32" Height="32"/>
                             <CheckBox IsChecked="{Binding IonianBootsActive}" Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,1">
+                            <Image Source="/Icons/Items/CrimsonLucidity.png" Width="32" Height="32"/>
+                            <CheckBox IsChecked="{Binding CrimsonLucidityActive}" Margin="6,0,0,0" VerticalAlignment="Center" Style="{StaticResource CustomCheckBox}"/>
                         </StackPanel>
 
                     </StackPanel>

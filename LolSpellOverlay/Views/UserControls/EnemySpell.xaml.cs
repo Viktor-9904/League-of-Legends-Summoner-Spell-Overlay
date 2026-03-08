@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Win32.SafeHandles;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -81,12 +82,14 @@ namespace LolSpellOverlay.Views.UserControls
 
             bool cosmicInsightActive = false;
             bool ionianBootsActive = false;
+            bool crimsonLucidityActive = false;
 
             var parent = FindParent<EnemyRow>(this);
             if (parent != null)
             {
                 cosmicInsightActive = parent.CosmicInsightActive;
                 ionianBootsActive = parent.IonianBootsActive;
+                crimsonLucidityActive = parent.CrimsonLucidityActive;
             }
 
             if (cosmicInsightActive)
@@ -95,9 +98,14 @@ namespace LolSpellOverlay.Views.UserControls
                 summonerItemHaste += Runes.CosmicInsightItemHaste;
             }
 
-            if (ionianBootsActive)
+            if (ionianBootsActive && !crimsonLucidityActive)
             {
                 summonerSpellHaste += Items.IonianBootsOfLuciditySpellHaste;
+            }
+
+            if (!ionianBootsActive && crimsonLucidityActive)
+            {
+                summonerSpellHaste += Items.CrimsonLuciditySpellHaste;
             }
 
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
@@ -159,30 +167,6 @@ namespace LolSpellOverlay.Views.UserControls
 
         private void Spell_RightClick(object sender, MouseButtonEventArgs e)
         {
-            int summonerSpellHaste = 0;
-            int summonerItemHaste = 0;
-
-            bool cosmicInsightActive = false;
-            bool ionianBootsActive = false;
-
-            var parent = FindParent<EnemyRow>(this);
-            if (parent != null)
-            {
-                cosmicInsightActive = parent.CosmicInsightActive;
-                ionianBootsActive = parent.IonianBootsActive;
-            }
-
-            if (cosmicInsightActive)
-            {
-                summonerSpellHaste += Runes.CosmicInsightSpellHaste;
-                summonerItemHaste += Runes.CosmicInsightItemHaste;
-            }
-
-            if (ionianBootsActive)
-            {
-                summonerSpellHaste += Items.IonianBootsOfLuciditySpellHaste;
-            }
-
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
                 var nextSpell = SummonerSpells.All.Find(SummonerSpells.All.FirstOrDefault(s => s.Name == Spell.Name)!)!.Previous?.Value

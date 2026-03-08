@@ -48,5 +48,12 @@ namespace LolSpellOverlay
             this.Left = screenWidth - this.Width;
             this.Top = 0 + 70;
         }
+
+        public static event Action? AppDeactivated;
+
+        private void Window_Deactivated(object sender, EventArgs e)
+        {
+            AppDeactivated?.Invoke();
+        }
     }
 }

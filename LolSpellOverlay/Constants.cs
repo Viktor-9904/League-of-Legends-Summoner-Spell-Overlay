@@ -162,6 +162,7 @@ namespace LolSpellOverlay
         public static class Items
         {
             public const int IonianBootsOfLuciditySpellHaste = 10;
+            public const int CrimsonLuciditySpellHaste = 20;
         }
     }
 }

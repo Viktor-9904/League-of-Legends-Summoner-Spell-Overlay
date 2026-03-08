@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Remove="Icons\App\AppIcon.ico" />
+    <None Remove="Icons\Items\CrimsonLucidity.png" />
     <None Remove="Icons\Items\GuardianAngel.png" />
     <None Remove="Icons\Items\ImmortalShieldbow.png" />
     <None Remove="Icons\Items\IonianBootsOfLucidity.png" />
@@ -62,6 +63,9 @@
 
   <ItemGroup>
     <Resource Include="Icons\App\AppIcon.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\Items\CrimsonLucidity.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Icons\Items\GuardianAngel.png">
